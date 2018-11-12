@@ -23,22 +23,22 @@ DEALINGS IN THE SOFTWARE.
 */
 
 
-#include "BLENano.h"
+#include "Bluefruit.h"
 #include "Timer.h"
 #include "nrf52.h"
 #include "nrf52_bitfields.h"
 
 using namespace codal;
 
-BLENano *ble_nano_device_instance = NULL;
+Bluefruit *ble_nano_device_instance = NULL;
 
 /**
   * Constructor.
   *
-  * Create a representation of a BLENano device, which includes member variables
-  * that represent various device drivers used to control aspects of the BLENano.
+  * Create a representation of a Bluefruit device, which includes member variables
+  * that represent various device drivers used to control aspects of the Bluefruit.
   */
-BLENano::BLENano() :
+Bluefruit::Bluefruit() :
     io(),
     // serial(io.P29, io.P30),
     timer(),
@@ -89,7 +89,7 @@ BLENano::BLENano() :
   * @note This method must be called before user code utilises any functionality
   *       contained within the GenuinoZero class.
   */
-int BLENano::init()
+int Bluefruit::init()
 {
     if (status & DEVICE_INITIALIZED)
         return DEVICE_NOT_SUPPORTED;
@@ -111,7 +111,7 @@ int BLENano::init()
     // Create an event handler to trap any handlers being created for I2C services.
     // We do this to enable initialisation of those services only when they're used,
     // which saves processor time, memeory and battery life.
-    messageBus.listen(DEVICE_ID_MESSAGE_BUS_LISTENER, DEVICE_EVT_ANY, this, &BLENano::onListenerRegisteredEvent);
+    messageBus.listen(DEVICE_ID_MESSAGE_BUS_LISTENER, DEVICE_EVT_ANY, this, &Bluefruit::onListenerRegisteredEvent);
 
     codal_dmesg_set_flush_fn(nano_dmesg_flush);
     status |= DEVICE_COMPONENT_STATUS_IDLE_TICK;
@@ -126,7 +126,7 @@ int BLENano::init()
   * the compass and the accelerometer, where we only want to add them to the idle
   * fiber when someone has the intention of using these components.
   */
-void BLENano::onListenerRegisteredEvent(Event evt)
+void Bluefruit::onListenerRegisteredEvent(Event evt)
 {
 }
 
@@ -135,7 +135,7 @@ void BLENano::onListenerRegisteredEvent(Event evt)
   * We use this for any low priority, backgrounf housekeeping.
   *
   */
-void BLENano::idleCallback()
+void Bluefruit::idleCallback()
 {
     codal_dmesg_flush();
 }
@@ -147,7 +147,7 @@ void nano_dmesg_flush()
     // if (codalLogStore.ptr > 0 && ble_nano_device_instance)
     // {
     //     for (uint32_t i=0; i<codalLogStore.ptr; i++)
-    //         ((BLENano *)ble_nano_device_instance)->serial.putc(codalLogStore.buffer[i]);
+    //         ((Bluefruit *)ble_nano_device_instance)->serial.putc(codalLogStore.buffer[i]);
 
     //     codalLogStore.ptr = 0;
     // }

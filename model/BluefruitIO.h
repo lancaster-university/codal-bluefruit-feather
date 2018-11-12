@@ -70,7 +70,7 @@ namespace codal
     /**
      * Represents a collection of all I/O pins exposed by the device.
      */
-    class BLENanoIO
+    class BluefruitIO
     {
         public:
 
@@ -95,7 +95,7 @@ namespace codal
              * Accepts a sequence of unique ID's used to distinguish events raised
              * by NRF52Pin instances on the default EventModel.
              */
-            BLENanoIO();
+            BluefruitIO();
     };
 }
 

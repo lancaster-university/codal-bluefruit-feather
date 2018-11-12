@@ -22,8 +22,8 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef BLE_NANO_H
-#define BLE_NANO_H
+#ifndef BLUEFRUIT_H
+#define BLUEFRUIT_H
 
 #include "CodalHeapAllocator.h"
 #include "codal-core/inc/types/Event.h"
@@ -42,7 +42,7 @@ DEALINGS IN THE SOFTWARE.
 #include "MultiButton.h"
 #include "NRF52Pin.h"
 
-#include "BLENanoIO.h"
+#include "BluefruitIO.h"
 #include "CodalFiber.h"
 #include "MessageBus.h"
 
@@ -52,14 +52,14 @@ DEALINGS IN THE SOFTWARE.
 #define DEVICE_INITIALIZED                    0x01
 
 /**
- * Class definition for a BLENano device.
+ * Class definition for a Bluefruit device.
  *
  * Represents the device as a whole, and includes member variables that represent various device drivers
- * used to control aspects of the BLENano.
+ * used to control aspects of the Bluefruit.
  */
 namespace codal
 {
-    class BLENano : public CodalComponent
+    class Bluefruit : public CodalComponent
     {
         private:
 
@@ -76,7 +76,7 @@ namespace codal
 
         public:
 
-            BLENanoIO                   io;
+            BluefruitIO                   io;
 
             // codal::_mbed::Serial        serial;
             NRF52Timer                  timer;
@@ -87,10 +87,10 @@ namespace codal
             //Button                      buttonA;
 
             // Persistent key value store
-            //BLENanoStorage           storage;
+            //BluefruitStorage           storage;
 
             // Bluetooth related member variables.
-            //BLENanoBLEManager		  bleManager;
+            //BluefruitBLEManager		  bleManager;
             //BLEDevice                   *ble;
 
             /**
@@ -99,7 +99,7 @@ namespace codal
              * Create a representation of a Genuino Zero device, which includes member variables
              * that represent various device drivers used to control aspects of the board.
              */
-            BLENano();
+            Bluefruit();
 
             /**
              * Post constructor initialisation method.
@@ -132,7 +132,7 @@ namespace codal
             virtual void idleCallback();
 
             /**
-             * Determine the time since this BLENano was last reset.
+             * Determine the time since this Bluefruit was last reset.
              *
              * @return The time since the last reset, in milliseconds.
              *
@@ -160,19 +160,19 @@ namespace codal
      * @return DEVICE_OK on success, DEVICE_INVALID_PARAMETER milliseconds is less than zero.
      *
      */
-    inline void BLENano::sleep(uint32_t milliseconds)
+    inline void Bluefruit::sleep(uint32_t milliseconds)
     {
         fiber_sleep(milliseconds);
     }
 
     /**
-     * Determine the time since this BLENano was last reset.
+     * Determine the time since this Bluefruit was last reset.
      *
      * @return The time since the last reset, in milliseconds.
      *
      * @note This will value overflow after 1.6 months.
      */
-    inline unsigned long BLENano::systemTime()
+    inline unsigned long Bluefruit::systemTime()
     {
         return system_timer_current_time();
     }
